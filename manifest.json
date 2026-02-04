@@ -5,7 +5,8 @@
   "description": "Track your AI usage and environmental impact. Mindful AI, better results.",
   "permissions": [
     "storage",
-    "webRequest"
+    "webRequest",
+    "notifications"
   ],
   "host_permissions": [
     "*://api.openai.com/*",
