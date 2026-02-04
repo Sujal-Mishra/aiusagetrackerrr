@@ -1,4 +1,29 @@
-// Listen for guilt trip messages
+(function () {
+  const originalFetch = window.fetch;
+
+  window.fetch = async function (...args) {
+    const response = await originalFetch.apply(this, args);
+
+    try {
+      const url = args[0]?.toString?.() || "";
+
+      if (
+        url.includes("openai") ||
+        url.includes("anthropic") ||
+        url.includes("generativelanguage")
+      ) {
+        chrome.runtime.sendMessage({
+          action: "AI_REQUEST_DETECTED",
+          url
+        });
+      }
+    } catch (e) {
+      // silently ignoreee
+    }
+
+    return response;
+  };
+})();// Listen for guilt trip messages
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === 'showGuiltTrip') {
     showGuiltTripOverlay(request.level, request.requests, request.co2);
