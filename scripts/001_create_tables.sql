@@ -34,81 +34,20 @@ ALTER TABLE public.teams ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.ai_usage ENABLE ROW LEVEL SECURITY;
 
--- Teams policies
-CREATE POLICY "Anyone can view teams" ON public.teams 
-  FOR SELECT USING (true);
+-- Teams policies - allow all for authenticated users
+CREATE POLICY "teams_select" ON public.teams FOR SELECT TO authenticated USING (true);
+CREATE POLICY "teams_insert" ON public.teams FOR INSERT TO authenticated WITH CHECK (true);
+CREATE POLICY "teams_update" ON public.teams FOR UPDATE TO authenticated USING (auth.uid() = created_by);
 
-CREATE POLICY "Authenticated users can create teams" ON public.teams 
-  FOR INSERT WITH CHECK (auth.uid() IS NOT NULL);
+-- Profiles policies - allow all for authenticated users
+CREATE POLICY "profiles_select" ON public.profiles FOR SELECT TO authenticated USING (true);
+CREATE POLICY "profiles_insert" ON public.profiles FOR INSERT TO authenticated WITH CHECK (auth.uid() = id);
+CREATE POLICY "profiles_update" ON public.profiles FOR UPDATE TO authenticated USING (auth.uid() = id);
 
-CREATE POLICY "Team creators can update their teams" ON public.teams 
-  FOR UPDATE USING (auth.uid() = created_by);
-
--- Profiles policies
-CREATE POLICY "Users can view their own profile" ON public.profiles 
-  FOR SELECT USING (auth.uid() = id);
-
-CREATE POLICY "Users can view profiles in their team" ON public.profiles 
-  FOR SELECT USING (
-    team_id IN (SELECT team_id FROM public.profiles WHERE id = auth.uid())
-  );
-
-CREATE POLICY "Admins can view all profiles" ON public.profiles 
-  FOR SELECT USING (
-    EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND is_admin = true)
-  );
-
-CREATE POLICY "Users can insert their own profile" ON public.profiles 
-  FOR INSERT WITH CHECK (auth.uid() = id);
-
-CREATE POLICY "Users can update their own profile" ON public.profiles 
-  FOR UPDATE USING (auth.uid() = id);
-
--- AI Usage policies
-CREATE POLICY "Users can view their own usage" ON public.ai_usage 
-  FOR SELECT USING (auth.uid() = user_id);
-
-CREATE POLICY "Users can view team usage" ON public.ai_usage 
-  FOR SELECT USING (
-    team_id IN (SELECT team_id FROM public.profiles WHERE id = auth.uid())
-  );
-
-CREATE POLICY "Admins can view all usage" ON public.ai_usage 
-  FOR SELECT USING (
-    EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND is_admin = true)
-  );
-
-CREATE POLICY "Users can insert their own usage" ON public.ai_usage 
-  FOR INSERT WITH CHECK (auth.uid() = user_id);
-
-CREATE POLICY "Users can update their own usage" ON public.ai_usage 
-  FOR UPDATE USING (auth.uid() = user_id);
-
--- Create trigger to auto-create profile on signup
-CREATE OR REPLACE FUNCTION public.handle_new_user()
-RETURNS TRIGGER
-LANGUAGE plpgsql
-SECURITY DEFINER
-SET search_path = public
-AS $$
-BEGIN
-  INSERT INTO public.profiles (id, email, display_name)
-  VALUES (
-    NEW.id,
-    NEW.email,
-    COALESCE(NEW.raw_user_meta_data ->> 'display_name', split_part(NEW.email, '@', 1))
-  )
-  ON CONFLICT (id) DO NOTHING;
-  RETURN NEW;
-END;
-$$;
-
-DROP TRIGGER IF EXISTS on_auth_user_created ON auth.users;
-
-CREATE TRIGGER on_auth_user_created
-  AFTER INSERT ON auth.users
-  FOR EACH ROW
-  EXECUTE FUNCTION public.handle_new_user();
+-- AI Usage policies - allow all for authenticated users
+CREATE POLICY "ai_usage_select" ON public.ai_usage FOR SELECT TO authenticated USING (true);
+CREATE POLICY "ai_usage_insert" ON public.ai_usage FOR INSERT TO authenticated WITH CHECK (auth.uid() = user_id);
+CREATE POLICY "ai_usage_update" ON public.ai_usage FOR UPDATE TO authenticated USING (auth.uid() = user_id);
 
 -- Create indexes for better performance
 CREATE INDEX IF NOT EXISTS idx_profiles_team_id ON public.profiles(team_id);
