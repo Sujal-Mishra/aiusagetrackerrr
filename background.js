@@ -82,12 +82,23 @@ chrome.webRequest.onBeforeRequest.addListener(
       } else if (annoyanceModeEnabled && sessionRequests >= 30 && warningLevel < 2.5) {
         // Special annoyance mode trigger at 30
         warningLevel = 2.5;
+
+         showNotification(
+        "🚨 ANN0YANCE MODE",
+        "Bas bhai bas. Planet literally ro raha hai 😭"
+  );
         triggerAnnoyanceMode();
       } else if (sessionRequests >= 25 && warningLevel < 2) {
         warningLevel = 2;
         triggerGuiltTrip(2);
       } else if (sessionRequests >= 15 && warningLevel < 1) {
         warningLevel = 1;
+
+         showNotification(
+        "🌱 Easy bhai",
+        `You've already made ${aiRequestCount} AI requests. Thoda dimag bhi use kar le 😛`
+  );
+
         triggerGuiltTrip(1);
       }
 
@@ -135,6 +146,16 @@ function triggerAnnoyanceMode() {
         co2: totalCO2
       });
     }
+  });
+}
+
+function showNotification(title, message) {
+  chrome.notifications.create({
+    type: "basic",
+    iconUrl: "icon128.png",
+    title: title,
+    message: message,
+    priority: 2
   });
 }
 
