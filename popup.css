@@ -1,0 +1,324 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&family=Courier+Prime:wght@400;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 400px;
+  font-family: 'Courier Prime', monospace;
+  background: #0a0e0a;
+  color: #00ff41;
+}
+
+.popup-container {
+  padding: 20px;
+  background: #0a0e0a;
+  border: 2px solid #00ff41;
+  box-shadow: inset 0 0 50px rgba(0, 255, 65, 0.05);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #00ff41;
+}
+
+.header-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+h1 {
+  font-family: 'VT323', monospace;
+  font-size: 28px;
+  font-weight: 400;
+  color: #00ff41;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px rgba(0, 255, 65, 0.8);
+}
+
+.subtitle {
+  font-family: 'Courier Prime', monospace;
+  font-size: 12px;
+  color: rgba(0, 255, 65, 0.7);
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.stat-card {
+  background: rgba(0, 255, 65, 0.05);
+  border: 1px solid #00ff41;
+  padding: 12px 8px;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.stat-card:hover {
+  background: rgba(0, 255, 65, 0.1);
+  box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
+}
+
+.stat-icon {
+  font-size: 24px;
+  margin-bottom: 6px;
+  display: block;
+  filter: drop-shadow(0 0 5px rgba(0, 255, 65, 0.6));
+}
+
+.stat-value {
+  font-family: 'VT323', monospace;
+  font-size: 22px;
+  font-weight: 400;
+  color: #00ff41;
+  margin-bottom: 4px;
+  text-shadow: 0 0 8px rgba(0, 255, 65, 0.8);
+}
+
+.stat-label {
+  font-family: 'Courier Prime', monospace;
+  font-size: 9px;
+  text-transform: uppercase;
+  color: rgba(0, 255, 65, 0.7);
+  letter-spacing: 0.5px;
+  font-weight: 400;
+}
+
+.insights-section {
+  background: rgba(0, 255, 65, 0.08);
+  padding: 14px;
+  margin-bottom: 16px;
+  border: 1px solid #00ff41;
+}
+
+.insights-section h3 {
+  font-family: 'VT323', monospace;
+  font-size: 18px;
+  font-weight: 400;
+  color: #00ff41;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+  text-shadow: 0 0 5px rgba(0, 255, 65, 0.6);
+}
+
+#insights-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.insight-item {
+  font-family: 'Courier Prime', monospace;
+  font-size: 12px;
+  line-height: 1.4;
+  color: #00ff41;
+  padding: 8px 10px;
+  background: rgba(0, 255, 65, 0.05);
+  border-left: 2px solid #00ff41;
+}
+
+.insight-positive {
+  background: rgba(0, 255, 100, 0.1);
+  border-left-color: #00ff64;
+  color: #00ff64;
+}
+
+.context-section {
+  background: rgba(0, 255, 65, 0.03);
+  padding: 14px;
+  margin-bottom: 16px;
+  border: 1px solid rgba(0, 255, 65, 0.5);
+}
+
+.context-section h3 {
+  font-family: 'VT323', monospace;
+  font-size: 18px;
+  font-weight: 400;
+  color: #00ff41;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+
+.context-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.context-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px;
+  background: rgba(0, 255, 65, 0.05);
+  border: 1px solid rgba(0, 255, 65, 0.3);
+}
+
+.context-label {
+  font-family: 'Courier Prime', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  color: rgba(0, 255, 65, 0.6);
+  font-weight: 400;
+  letter-spacing: 0.5px;
+}
+
+.context-value {
+  font-family: 'VT323', monospace;
+  font-size: 18px;
+  font-weight: 400;
+  color: #00ff41;
+  text-shadow: 0 0 5px rgba(0, 255, 65, 0.6);
+}
+
+.info-note {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  padding: 8px;
+  background: rgba(0, 255, 65, 0.03);
+  border: 1px solid rgba(0, 255, 65, 0.2);
+}
+
+.info-icon {
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.info-text {
+  font-family: 'Courier Prime', monospace;
+  font-size: 10px;
+  line-height: 1.3;
+  color: rgba(0, 255, 65, 0.6);
+}
+
+.actions {
+  margin-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.annoyance-toggle {
+  background: rgba(255, 0, 64, 0.08);
+  border: 1px solid #ff0040;
+  padding: 12px;
+}
+
+.toggle-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.toggle-label input[type="checkbox"] {
+  display: none;
+}
+
+.toggle-slider {
+  position: relative;
+  width: 40px;
+  height: 20px;
+  background: rgba(255, 0, 64, 0.2);
+  border: 1px solid #ff0040;
+  flex-shrink: 0;
+  transition: background 0.3s ease;
+}
+
+.toggle-slider::before {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  background: #ff0040;
+  top: 2px;
+  left: 2px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 8px rgba(255, 0, 64, 0.8);
+}
+
+.toggle-label input:checked + .toggle-slider {
+  background: rgba(255, 0, 64, 0.3);
+}
+
+.toggle-label input:checked + .toggle-slider::before {
+  transform: translateX(20px);
+}
+
+.toggle-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.toggle-title {
+  font-family: 'VT323', monospace;
+  font-size: 16px;
+  font-weight: 400;
+  color: #ff0040;
+  letter-spacing: 1px;
+  text-shadow: 0 0 5px rgba(255, 0, 64, 0.6);
+}
+
+.toggle-description {
+  font-family: 'Courier Prime', monospace;
+  font-size: 10px;
+  color: rgba(255, 0, 64, 0.7);
+  line-height: 1.2;
+}
+
+.reset-button {
+  width: 100%;
+  padding: 12px;
+  font-family: 'VT323', monospace;
+  font-size: 18px;
+  font-weight: 400;
+  color: #00ff41;
+  background: transparent;
+  border: 2px solid #00ff41;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  letter-spacing: 1px;
+  text-shadow: 0 0 5px rgba(0, 255, 65, 0.6);
+  position: relative;
+  overflow: hidden;
+}
+
+.reset-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 255, 65, 0.2);
+  transition: left 0.3s ease;
+}
+
+.reset-button:hover::before {
+  left: 0;
+}
+
+.reset-button:hover {
+  box-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
+  text-shadow: 0 0 10px rgba(0, 255, 65, 1);
+}
+
+.reset-button:active {
+  transform: scale(0.98);
+}

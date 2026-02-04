@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Usage Insights</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <div class="header">
+      <div class="header-content">
+        <h1>AI Usage Insights</h1>
+        <p class="subtitle">Mindful AI, Better Results</p>
+      </div>
+    </div>
+    
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">🤖</div>
+        <div class="stat-content">
+          <div class="stat-value" id="request-count">0</div>
+          <div class="stat-label">Total Requests</div>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon">☁️</div>
+        <div class="stat-content">
+          <div class="stat-value" id="co2-amount">0g</div>
+          <div class="stat-label">CO2 Impact</div>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon">📊</div>
+        <div class="stat-content">
+          <div class="stat-value" id="today-count">0</div>
+          <div class="stat-label">Today</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="insights-section">
+      <h3>💡 Your Insights</h3>
+      <div id="insights-list"></div>
+    </div>
+
+    <div class="context-section">
+      <h3>🌍 Environmental Context</h3>
+      <div class="context-grid">
+        <div class="context-item">
+          <span class="context-label">Your CO2:</span>
+          <span class="context-value" id="your-co2">0g</span>
+        </div>
+        <div class="context-item">
+          <span class="context-label">Equals:</span>
+          <span class="context-value" id="equivalent"></span>
+        </div>
+      </div>
+      <div class="info-note">
+        <div class="info-icon">ℹ️</div>
+        <div class="info-text">CO2 estimates based on model energy consumption research. Actual impact varies by infrastructure and usage.</div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <div class="annoyance-toggle">
+        <label class="toggle-label">
+          <input type="checkbox" id="annoyance-mode-toggle" />
+          <span class="toggle-slider"></span>
+          <span class="toggle-text">
+            <span class="toggle-title">🎭 Annoyance Mode</span>
+            <span class="toggle-description">Enable extra "motivation" at 30+ requests</span>
+          </span>
+        </label>
+      </div>
+      <button id="reset-btn" class="reset-button">
+        Start Fresh
+      </button>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
