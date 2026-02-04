@@ -182,3 +182,26 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   }
   return true;
 });
+
+
+chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
+  if (msg.action === "AI_REQUEST_DETECTED") {
+    aiRequestCount++;
+    totalCO2 += 4.0; // average estimate
+
+    const today = new Date().toDateString();
+    if (!dailyStats[today]) {
+      dailyStats[today] = { requests: 0, co2: 0 };
+    }
+
+    dailyStats[today].requests++;
+    dailyStats[today].co2 += 4.0;
+
+    chrome.storage.local.set({
+      aiRequestCount,
+      totalCO2,
+      dailyStats
+    });
+  }
+});
+
